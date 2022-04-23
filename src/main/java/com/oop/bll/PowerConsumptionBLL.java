@@ -10,10 +10,6 @@ import com.oop.repository.PowerConsumptionRepository;
 
 public class PowerConsumptionBLL {
 	public void CreatePowerConsumption(PowerConsumption powerConsumption) {
-		powerConsumption.setUserId(1);
-		powerConsumption.setUnits(1);
-		powerConsumption.setBillDate(new Date());
-		powerConsumption.setMobileNumber("123");
 		new PowerConsumptionRepository().CreatePowerConsumption(powerConsumption);	
 	}
 	

@@ -1,6 +1,11 @@
 package com.oop.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import jakarta.ws.rs.FormParam;
 
 
 public class PowerConsumption {
@@ -9,6 +14,24 @@ public class PowerConsumption {
 	private String MobileNumber;
 	private int Units;
 	private Date BillDate;
+	
+	public PowerConsumption(String mobileNumber, int units, int userId) {
+		this.MobileNumber = mobileNumber;
+		this.Units = units;
+		this.UserId = userId;
+		this.BillDate = new Date();
+	}
+	
+	public PowerConsumption(int id, String mobileNumber, int units, int userId) {
+		this.Id = id;
+		this.MobileNumber = mobileNumber;
+		this.Units = units;
+		this.UserId = userId;
+	}
+	
+	public PowerConsumption() {
+		
+	}
 	
 	public int getId() {
 		return Id;

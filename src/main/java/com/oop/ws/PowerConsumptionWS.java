@@ -1,11 +1,12 @@
 package com.oop.ws;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
-import com.oop.bll.NoticeBLL;
 import com.oop.bll.PowerConsumptionBLL;
-import com.oop.model.Notice;
 import com.oop.model.PowerConsumption;
+import com.oop.model.PowerConsumptionDto;
 import com.oop.model.ReturnObject;
 import com.oop.utils.Utilities;
 
@@ -49,19 +50,22 @@ public class PowerConsumptionWS extends Application{
 	@GET
 	@Path("get")
 	public Response Get(@QueryParam("tel") String tel) {
-		new PowerConsumptionBLL().GetPowerConsumptionByTel(tel);	
+		PowerConsumption powerConsumption = new PowerConsumptionBLL().GetPowerConsumptionByTel(tel);	
 		ReturnObject obj = new ReturnObject();
 		obj.Status = Utilities.resultStatus.success.toString();
-		return Response.ok(obj).build();
+		return Response.ok(powerConsumption).build();
 
 	}
 	
 	//http://localhost:8080/ElectroGrid/api/PowerConsumption/save
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@POST
 	@Path("save")
-	public Response Save(PowerConsumption powerConsumption) {
+	public Response Save(@FormParam("MobileNumber") String mobileNumber,
+			@FormParam("Units") int units,
+			@FormParam("UserId") int userId) {
+		PowerConsumption powerConsumption = new PowerConsumption(mobileNumber,units,userId);
 		new PowerConsumptionBLL().CreatePowerConsumption(powerConsumption);	
 		ReturnObject obj = new ReturnObject();
 		obj.Status = Utilities.resultStatus.success.toString();
@@ -70,10 +74,15 @@ public class PowerConsumptionWS extends Application{
 	
 	//http://localhost:8080/ElectroGrid/api/PowerConsumption/edit
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@POST
 	@Path("edit")
-	public Response Edit(PowerConsumption powerConsumption) {
+	public Response Edit(@FormParam("Id") int id,
+			@FormParam("UserId") int userId,
+			@FormParam("MobileNumber") String mobileNumber,
+			@FormParam("Units") int units
+			) {
+		PowerConsumption powerConsumption = new PowerConsumption(id,mobileNumber,units,userId);
 		new PowerConsumptionBLL().EditPowerConsumption(powerConsumption);
 		ReturnObject obj = new ReturnObject();
 		obj.Status = Utilities.resultStatus.success.toString();

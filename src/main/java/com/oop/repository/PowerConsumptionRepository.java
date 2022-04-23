@@ -68,15 +68,14 @@ public class PowerConsumptionRepository {
 			 * insert_employee key to extract value of it
 			 */
 			preparedStatement = connection
-					.prepareStatement("update PowerConsumption as n set n.UserId = ?, n.MobileNumber = ?, n.Units = ?, n.BillDate = ? where n.Id = ?");
+					.prepareStatement("update PowerConsumption as n set n.UserId = ?, n.MobileNumber = ?, n.Units = ? where n.Id = ?");
 			connection.setAutoCommit(false);
 			
 			preparedStatement.setInt(Utilities.COLUMN_INDEX_ONE, powerConsumption.getUserId());
 			preparedStatement.setString(Utilities.COLUMN_INDEX_TWO, powerConsumption.getMobileNumber());			
-			preparedStatement.setInt(Utilities.COLUMN_INDEX_THREE, powerConsumption.getUnits());			
-			preparedStatement.setDate(Utilities.COLUMN_INDEX_FOUR, new java.sql.Date(powerConsumption.getBillDate().getTime()));
+			preparedStatement.setInt(Utilities.COLUMN_INDEX_THREE, powerConsumption.getUnits());
 			
-			preparedStatement.setInt(Utilities.COLUMN_INDEX_FIVE, powerConsumption.getId());
+			preparedStatement.setInt(Utilities.COLUMN_INDEX_FOUR, powerConsumption.getId());
 
 			preparedStatement.execute();
 			connection.commit();
@@ -190,7 +189,7 @@ public class PowerConsumptionRepository {
 
 			preparedStatement = connection
 					.prepareStatement("select * from PowerConsumption where MobileNumber = ?");
-			preparedStatement.setMaxRows(1); 
+			//preparedStatement.setMaxRows(1); 
 			
 			preparedStatement.setString(Utilities.COLUMN_INDEX_ONE, tel);
 
