@@ -1,6 +1,7 @@
 package com.oop.ws;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import net.sourceforge.jtds.jdbc.DateTime;
 
 @Path("/PowerConsumption")
 @ApplicationPath("api")
@@ -38,7 +40,7 @@ public class PowerConsumptionWS extends Application{
 	@GET
 	@Path("all")
 	public Response GetAll() {
-		ArrayList<PowerConsumption> powerConsumptionList = new PowerConsumptionBLL().GetListOfPowerConsumptions();
+		ArrayList<PowerConsumptionDto> powerConsumptionList = new PowerConsumptionBLL().GetListOfPowerConsumptions();
 		
 		ReturnObject obj = new ReturnObject();
 		obj.Status = Utilities.resultStatus.success.toString();
@@ -64,8 +66,10 @@ public class PowerConsumptionWS extends Application{
 	@Path("save")
 	public Response Save(@FormParam("MobileNumber") String mobileNumber,
 			@FormParam("Units") int units,
-			@FormParam("UserId") int userId) {
-		PowerConsumption powerConsumption = new PowerConsumption(mobileNumber,units,userId);
+			@FormParam("UserId") int userId,
+			@FormParam("BillDate") String billDate) throws ParseException {
+		Date date = new SimpleDateFormat("dd-MM-yyyy").parse(billDate); 
+		PowerConsumption powerConsumption = new PowerConsumption(mobileNumber,units,userId, date); 
 		new PowerConsumptionBLL().CreatePowerConsumption(powerConsumption);	
 		ReturnObject obj = new ReturnObject();
 		obj.Status = Utilities.resultStatus.success.toString();
@@ -80,9 +84,11 @@ public class PowerConsumptionWS extends Application{
 	public Response Edit(@FormParam("Id") int id,
 			@FormParam("UserId") int userId,
 			@FormParam("MobileNumber") String mobileNumber,
-			@FormParam("Units") int units
-			) {
-		PowerConsumption powerConsumption = new PowerConsumption(id,mobileNumber,units,userId);
+			@FormParam("Units") int units,
+			@FormParam("BillDate") String billDate
+			) throws ParseException {
+		Date date = new SimpleDateFormat("dd-MM-yyyy").parse(billDate);  
+		PowerConsumption powerConsumption = new PowerConsumption(id,mobileNumber,units,userId, date);
 		new PowerConsumptionBLL().EditPowerConsumption(powerConsumption);
 		ReturnObject obj = new ReturnObject();
 		obj.Status = Utilities.resultStatus.success.toString();

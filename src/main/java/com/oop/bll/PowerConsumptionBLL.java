@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.oop.model.PowerConsumption;
+import com.oop.model.PowerConsumptionDto;
 import com.oop.repository.PowerConsumptionRepository;
 
 public class PowerConsumptionBLL {
@@ -28,8 +29,8 @@ public class PowerConsumptionBLL {
 		return powerConsumption;
 	}
 
-	public ArrayList<PowerConsumption> GetListOfPowerConsumptions(){
-		ArrayList<PowerConsumption> powerConsumptionList = new PowerConsumptionRepository().GetListOfPowerConsumptions();
+	public ArrayList<PowerConsumptionDto> GetListOfPowerConsumptions(){
+		ArrayList<PowerConsumptionDto> powerConsumptionList = new PowerConsumptionRepository().GetListOfPowerConsumptions();
 		return powerConsumptionList;
 	}
 }

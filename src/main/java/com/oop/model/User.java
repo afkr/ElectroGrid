@@ -6,6 +6,13 @@ public class User {
 	private String Address;
 	private String MobileNumber;
 	
+	public User(String name, String address, String mobileNumber) {
+		Name = name;
+		Address = address;
+		MobileNumber = mobileNumber;
+	}
+	
+	
 	public User(int userId, String name, String address, String mobileNumber) {
 		UserId = userId;
 		Name = name;

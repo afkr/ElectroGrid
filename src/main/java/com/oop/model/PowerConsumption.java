@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jakarta.ws.rs.FormParam;
+import net.sourceforge.jtds.jdbc.DateTime;
 
 
 public class PowerConsumption {
@@ -15,18 +16,19 @@ public class PowerConsumption {
 	private int Units;
 	private Date BillDate;
 	
-	public PowerConsumption(String mobileNumber, int units, int userId) {
+	public PowerConsumption(String mobileNumber, int units, int userId, Date billDate) {
 		this.MobileNumber = mobileNumber;
 		this.Units = units;
 		this.UserId = userId;
-		this.BillDate = new Date();
+		this.BillDate = billDate;
 	}
 	
-	public PowerConsumption(int id, String mobileNumber, int units, int userId) {
+	public PowerConsumption(int id, String mobileNumber, int units, int userId, Date billDate) {
 		this.Id = id;
 		this.MobileNumber = mobileNumber;
 		this.Units = units;
 		this.UserId = userId;
+		this.BillDate = billDate;
 	}
 	
 	public PowerConsumption() {
