@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2022 at 06:44 PM
+-- Generation Time: May 10, 2022 at 09:13 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -40,6 +40,31 @@ CREATE TABLE `powerconsumption` (
 -- Dumping data for table `powerconsumption`
 --
 
+INSERT INTO `powerconsumption` (`Id`, `UserId`, `MobileNumber`, `Units`, `BillDate`) VALUES
+(5, 1, '1234567890', 3, '2022-04-25 00:00:00'),
+(7, 1, '1234567890', 10, '2022-05-11 00:00:00'),
+(8, 1, '1234567890', 15, '2022-05-11 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(200) NOT NULL,
+  `Address` varchar(200) NOT NULL,
+  `MobileNumber` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`Id`, `Name`, `Address`, `MobileNumber`) VALUES
+(1, 'John', 'Test Address', '1234567890');
+
 --
 -- Indexes for dumped tables
 --
@@ -48,6 +73,13 @@ CREATE TABLE `powerconsumption` (
 -- Indexes for table `powerconsumption`
 --
 ALTER TABLE `powerconsumption`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `FKEY_USER` (`UserId`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -58,7 +90,23 @@ ALTER TABLE `powerconsumption`
 -- AUTO_INCREMENT for table `powerconsumption`
 --
 ALTER TABLE `powerconsumption`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `powerconsumption`
+--
+ALTER TABLE `powerconsumption`
+  ADD CONSTRAINT `FKEY_USER` FOREIGN KEY (`UserId`) REFERENCES `user` (`Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
