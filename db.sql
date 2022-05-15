@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2022 at 09:13 PM
+-- Generation Time: May 15, 2022 at 06:56 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -55,15 +55,18 @@ CREATE TABLE `user` (
   `Id` int(11) NOT NULL,
   `Name` varchar(200) NOT NULL,
   `Address` varchar(200) NOT NULL,
-  `MobileNumber` varchar(20) NOT NULL
+  `MobileNumber` varchar(20) NOT NULL,
+  `Username` varchar(200) NOT NULL,
+  `Password` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Id`, `Name`, `Address`, `MobileNumber`) VALUES
-(1, 'John', 'Test Address', '1234567890');
+INSERT INTO `user` (`Id`, `Name`, `Address`, `MobileNumber`, `Username`, `Password`) VALUES
+(1, 'John', 'Test Address', '1234567890', 'john', '123'),
+(2, 'Mary', '11, Galle Road, Mount Lavinia', '0712345678', 'mary', '123');
 
 --
 -- Indexes for dumped tables
@@ -90,13 +93,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `powerconsumption`
 --
 ALTER TABLE `powerconsumption`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
