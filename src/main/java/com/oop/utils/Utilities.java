@@ -59,9 +59,7 @@ public class Utilities {
 	
 	public static enum SessionVariables{
 		userId,
-		fullName,
-		email,
-		userType
+		name
 	}
 	
 	public static enum TicketStatus{

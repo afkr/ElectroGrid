@@ -14,6 +14,8 @@ package com.oop.ws;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import com.oop.bll.UserBLL;
 import com.oop.model.ReturnObject;
 import com.oop.model.User;
@@ -41,7 +43,7 @@ public class UserServices extends Application{
 	@GET
 	@Path("/sayHello")
 	public String getHelloMsg() {
-		return "Hello";
+		return "Hellos";
 	}
 	
 	//http://localhost:8080/Electro-Grid/api/Users/all
@@ -110,5 +112,6 @@ public class UserServices extends Application{
 		obj.Status = Utilities.resultStatus.success.toString();
 		return Response.ok(obj).build();
 	}
+	
 
 }

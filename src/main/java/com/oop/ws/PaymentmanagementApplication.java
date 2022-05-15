@@ -1,7 +1,6 @@
 package com.oop.ws;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.Date;
 import com.oop.bll.PowerConsumptionBLL;
 import com.oop.bll.TransactionBLL;
@@ -26,14 +25,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/Transaction")
 @ApplicationPath("api")
 public class PaymentmanagementApplication extends Application{
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//http://localhost:8080/ElectroGrid/api/Transaction/get
 		@Produces(MediaType.APPLICATION_JSON)
 		@GET

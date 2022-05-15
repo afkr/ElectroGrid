@@ -112,7 +112,7 @@ public class TransactionRepository {
 		
 		
 	}
-	public void DeleteTransaction(String id) {
+	public void DeleteTransaction(int id) {
 		try {
 			connection = DBConnection.getDBConnection();
 			/*
@@ -123,7 +123,7 @@ public class TransactionRepository {
 					.prepareStatement("delete from  Transaction where  Transaction.id = ?");
 			connection.setAutoCommit(false);
 			
-			preparedStatement.setString(Utilities.COLUMN_INDEX_ONE, id);
+			preparedStatement.setInt(Utilities.COLUMN_INDEX_ONE, id);
 
 			preparedStatement.execute();
 			connection.commit();

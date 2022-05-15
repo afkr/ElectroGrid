@@ -5,10 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oop.bll.PowerConsumptionBLL;
+import com.oop.bll.UserBLL;
 import com.oop.model.PowerConsumption;
 import com.oop.model.PowerConsumptionDto;
 import com.oop.model.ReturnObject;
+import com.oop.model.User;
 import com.oop.utils.Utilities;
 
 import jakarta.ws.rs.ApplicationPath;
@@ -23,7 +27,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import net.sourceforge.jtds.jdbc.DateTime;
 
 @Path("/PowerConsumption")
 @ApplicationPath("api")
@@ -105,4 +108,39 @@ public class PowerConsumptionWS extends Application{
 		obj.Status = Utilities.resultStatus.success.toString();
 		return Response.ok(obj).build();
 	}
+	
+	//http://localhost:8080/ElectroGrid/api/PowerConsumption/login
+		@Produces(MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+		@POST
+		@Path("login")
+		public Response Login(@FormParam("username") String username,
+				@FormParam("password") String password) throws JsonProcessingException {
+			User user = new User(username, password);
+			User isExist = new UserBLL().AuthenticateUser(user);
+			
+			ReturnObject obj = new ReturnObject();
+			
+			if(isExist.getUserId() == 0) {
+				obj.Status = Utilities.resultStatus.warning.toString();
+				obj.Message = Utilities.INVALID_CREDENTIALS;
+			}
+			
+			else {
+				ObjectMapper mapper = new ObjectMapper();
+				String stringifiedObject = mapper.writeValueAsString(isExist);
+				/*
+				 * HttpSession session = request.getSession();
+				 * 
+				 * session.setAttribute(Utilities.SessionVariables.userId.toString(),
+				 * isExist.getUserId());
+				 * session.setAttribute(Utilities.SessionVariables.name.toString(),
+				 * isExist.getName());
+				 */
+				obj.Data = stringifiedObject;
+				obj.Status = Utilities.resultStatus.success.toString();
+			}
+
+			return Response.ok(obj).build();
+		}
 }

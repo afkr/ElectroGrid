@@ -16,7 +16,7 @@ public class TransactionBLL {
 		new TransactionRepository().EditTransaction(transaction);
 	}
 	
-	public void DeleteTransaction(String id) {
+	public void DeleteTransaction(int id) {
 		new TransactionRepository().DeleteTransaction(id);
 	}
 	

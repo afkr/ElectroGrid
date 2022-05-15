@@ -220,5 +220,52 @@ public class UserRepository {
 		}
 		return user;
 	}
+	
+	public User GetUserByUsernameAndPassword(String username, String password) {
+		
+		User existingUser = new User();
+		try {
+			connection = DBConnection.getDBConnection();
+			/*
+			 * Query is available in EmployeeQuery.xml file and use
+			 * insert_employee key to extract value of it
+			 */
+			preparedStatement = connection
+					.prepareStatement("select Id, Name, Username, Password from User where User.Username = ? and User.Password = ?");
+			connection.setAutoCommit(false);
+			
+			preparedStatement.setString(Utilities.COLUMN_INDEX_ONE, username);
+			preparedStatement.setString(Utilities.COLUMN_INDEX_TWO, password);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				existingUser.setUserId(resultSet.getInt(Utilities.COLUMN_INDEX_ONE));
+				existingUser.setName(resultSet.getString(Utilities.COLUMN_INDEX_TWO));
+				existingUser.setUsername(resultSet.getString(Utilities.COLUMN_INDEX_THREE));
+				existingUser.setPassword(resultSet.getString(Utilities.COLUMN_INDEX_FOUR));
+			}
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			
+		} finally {
+			/*
+			 * Close prepared statement and database connectivity at the end of
+			 * transaction
+			 */
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				
+			}
+		}
+		
+		return existingUser;
+	}
 
 }

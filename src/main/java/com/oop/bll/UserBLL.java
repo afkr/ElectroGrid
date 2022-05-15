@@ -28,5 +28,10 @@ public class UserBLL {
 		ArrayList<User> userList = new UserRepository().GetListOfUsers();
 		return userList;
 	}
+	
+	public User AuthenticateUser(User user) {
+		User isExist = new UserRepository().GetUserByUsernameAndPassword(user.getUsername(), user.getPassword());	
+		return isExist;
+	}
 
 }
